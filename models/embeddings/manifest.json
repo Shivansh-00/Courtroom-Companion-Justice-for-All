@@ -1,0 +1,8 @@
+{
+  "name": "legal-embeddings",
+  "version": "1.0.0",
+  "type": "text-embedding",
+  "dimensions": 1536,
+  "chunking": {"size": 800, "overlap": 120},
+  "vectorStore": "pgvector"
+}

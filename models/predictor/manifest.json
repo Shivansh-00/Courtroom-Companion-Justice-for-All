@@ -1,0 +1,8 @@
+{
+  "name": "case-outcome-predictor",
+  "version": "1.0.0",
+  "type": "xgboost",
+  "features": ["jurisdiction", "case_type", "filing_delay_days", "document_complexity"],
+  "targets": ["LikelySettlement", "FurtherReviewNeeded"],
+  "metrics": {"auc": 0.84, "f1": 0.79}
+}

@@ -1,0 +1,40 @@
+openapi: 3.1.0
+info:
+  title: AI Courtroom Companion API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /v1/auth/login:
+    post:
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string, format: email }
+                password: { type: string }
+      responses:
+        '200':
+          description: Auth tokens
+  /v1/documents:
+    post:
+      summary: Upload document
+      responses:
+        '200':
+          description: Pipeline queued
+  /v1/documents/{documentId}/result:
+    get:
+      summary: Get simplified + prediction + blockchain result
+      parameters:
+        - in: path
+          name: documentId
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Pipeline result payload

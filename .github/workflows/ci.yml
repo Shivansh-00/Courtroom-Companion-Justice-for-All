@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Python compile checks
+        run: |
+          python -m py_compile services/api-gateway/app/main.py \
+            services/user-service/app/main.py \
+            services/document-service/app/main.py \
+            services/nlp-service/app/main.py \
+            services/prediction-service/app/main.py \
+            services/blockchain-service/app/main.py \
+            services/notification-service/app/main.py \
+            services/matchmaking-service/app/main.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install frontend deps
+        run: npm --workspace apps/web install
+      - name: Build frontend
+        run: npm --workspace apps/web run build

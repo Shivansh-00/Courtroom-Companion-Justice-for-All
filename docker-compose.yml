@@ -1,0 +1,56 @@
+version: '3.9'
+services:
+  api-gateway:
+    build: ./services/api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - USER_SERVICE_URL=http://user-service:8000
+      - DOCUMENT_SERVICE_URL=http://document-service:8000
+      - NLP_SERVICE_URL=http://nlp-service:8000
+      - PREDICTION_SERVICE_URL=http://prediction-service:8000
+      - BLOCKCHAIN_SERVICE_URL=http://blockchain-service:8000
+      - NOTIFICATION_SERVICE_URL=http://notification-service:8000
+      - MATCHMAKING_SERVICE_URL=http://matchmaking-service:8000
+      - JWT_SECRET=dev-secret
+    depends_on:
+      - user-service
+      - document-service
+      - nlp-service
+      - prediction-service
+      - blockchain-service
+      - notification-service
+      - matchmaking-service
+
+  user-service:
+    build: ./services/user-service
+    environment:
+      - JWT_SECRET=dev-secret
+
+  document-service:
+    build: ./services/document-service
+
+  nlp-service:
+    build: ./services/nlp-service
+
+  prediction-service:
+    build: ./services/prediction-service
+
+  blockchain-service:
+    build: ./services/blockchain-service
+
+  notification-service:
+    build: ./services/notification-service
+
+  matchmaking-service:
+    build: ./services/matchmaking-service
+
+  web:
+    build: ./apps/web
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
+      - NEXT_PUBLIC_WS_URL=ws://localhost:8080/ws
+    depends_on:
+      - api-gateway
