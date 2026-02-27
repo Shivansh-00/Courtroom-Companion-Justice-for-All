@@ -1,0 +1,9 @@
+{
+  "name": "legal-simplifier",
+  "version": "1.0.0",
+  "type": "llm-policy",
+  "provider": "openai-compatible",
+  "input": {"maxTokens": 12000, "languages": ["en", "es", "fr", "sw", "hi"]},
+  "output": {"format": "plain_language_sections", "safetyFilters": ["legal-disclaimer", "pii-redaction"]},
+  "evaluation": {"readabilityGradeTarget": "<=8", "hallucinationTolerance": 0.01}
+}

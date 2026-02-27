@@ -1,0 +1,7 @@
+{
+  "name": "prediction-bias-detector",
+  "version": "1.0.0",
+  "type": "fairness-monitor",
+  "checks": ["equal_opportunity", "demographic_parity", "regional_drift"],
+  "alertThresholds": {"equalOpportunityGap": 0.08, "driftScore": 0.2}
+}
